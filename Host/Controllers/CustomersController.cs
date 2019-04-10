@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using CustomerApi.Contracts.Interfaces;
 using CustomerApi.Contracts.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerApi.Host.Controllers
@@ -36,6 +37,7 @@ namespace CustomerApi.Host.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [Produces("application/json")]
+        [Authorize(Roles = "reader, admin")]
         public async Task<IActionResult> GetCustomersByNameAsync([FromQuery]string searchTerm)
         {
             return Ok(await _customerService.GetCustomersByNameAsync(searchTerm));
@@ -66,6 +68,7 @@ namespace CustomerApi.Host.Controllers
         [HttpPost]
         [ProducesResponseType(200)]
         [Produces("application/json")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AddCustomerAsync([FromBody] Customer customer)
         {
             return Ok(await _customerService.AddCustomerAsync(customer));
@@ -101,6 +104,7 @@ namespace CustomerApi.Host.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [Produces("application/json")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateCustomerAsync(int id, [FromBody] Customer customer)
         {
             return Ok(await _customerService.UpdateCustomerAsync(id, customer));
@@ -127,6 +131,7 @@ namespace CustomerApi.Host.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [Produces("application/json")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteCustomerAsync(int id)
         {
             await _customerService.DeleteCustomerAsync(id);
