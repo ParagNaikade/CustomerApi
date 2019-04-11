@@ -1,5 +1,5 @@
 # CustomerApi
-A simple Customer API that performs CRUD operations on Customer.
+A simple Customer API that performs CRUD operations on Customer. It is secured using Jwt security token mechanism.
 
 If you are using Visual Studio 17, then set Host/CustomerApi.csproj as startup project.
 
